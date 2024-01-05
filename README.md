@@ -108,22 +108,3 @@ git add .
 git commit -m "fix: some bug" 
 git push
 ```
-
-#### > Fixing the 404 page error on routes.
-Watch my video on YouTube or check my repository.
-
-<a href="https://youtu.be/uEEj2c3_ydg?si=XiUEL9h1WUmfjtkt">
-    <img src="https://img.shields.io/badge/Video%20-%0A66C2.svg?&style=for-the-badge&logo=YouTube&logoColor=FF0000&color=282828" />
-</a>
-<a href="https://github.com/ErickKS/vite-react-router">
-    <img src="https://img.shields.io/badge/Repository%20-%0A66C2.svg?&style=for-the-badge&logo=GitHub&logoColor=FFFFFF&color=282828" />
-</a>
-
-<br/>
-
-#### > Do you want to automate the project setup process ( `.yml` and `vite.config` )?
-To prevent possible errors in the deploy process, check out this pull request:
-
-<a href="https://github.com/ErickKS/vite-deploy/pull/1">
-    <img src="https://img.shields.io/badge/Pull_Request%20-%0A66C2.svg?&style=for-the-badge&logo=GitHub&logoColor=FFFFFF&color=282828" />
-</a>
