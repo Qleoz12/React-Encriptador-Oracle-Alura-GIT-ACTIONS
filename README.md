@@ -2,13 +2,6 @@
     <h2>⚜️ V I T E &nbsp; D E P L O Y ⚜️</h2>
 </div>
 
-<div align="center">
-    <h4>Follow the steps below to deploy your React application on GitHub.</h4>
-    <a href="https://www.youtube.com/watch?v=XhoWXhyuW_I">
-        <img src="https://img.shields.io/badge/Youtube_Video%20-%0A66C2.svg?&style=for-the-badge&logo=YouTube&logoColor=FF0000&color=282828" />
-    </a>
-</div>
-
 <br />
 
 #### 01. Create a vite react app
