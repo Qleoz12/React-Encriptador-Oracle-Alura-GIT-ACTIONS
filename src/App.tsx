@@ -5,8 +5,8 @@ import './App.css'
 
 function App() {
   const [texto, setTexto] = useState('')
-  const [history, setHistory] = useState([]);
-  const inputSaidaRef = useRef<HTMLInputElement>(null);
+  const [history, setHistory] = useState<{ input: string; output: string; type: 'encrypt' | 'decrypt'; }[]>([]);
+  const inputSaidaRef = useRef<HTMLTextAreaElement>(null);
 
   const matrizCodigo = [
     ["a", "ai"],
@@ -43,10 +43,12 @@ function descriptografar(stringDescriptada: string): string {
   function botaoCriptografar() {
     const textoEncriptado = criptografar(texto)
     if (inputSaidaRef.current) {
-      inputSaidaRef.current.value = textoEncriptado
-    }
-    setHistory([...history, { input: texto, output: textoEncriptado, type: 'encrypt' }]);
+      inputSaidaRef.current.value = textoEncriptado;
   }
+
+  // Append new entry into history
+  setHistory([...history, { input: texto, output: textoEncriptado, type: 'encrypt' }]);
+}
 
   function botaoDescriptografar() {
     const textoDescriptado = descriptografar(texto)
@@ -61,12 +63,18 @@ function descriptografar(stringDescriptada: string): string {
     document.execCommand("copy")
   }
 
-  function handleHistoryClick(item) {
-    setTexto(item.input);
-     // Fix using null check
-     if (inputSaidaRef.current) {
-      inputSaidaRef.current.value = item.output;
+  interface HistoryItem {
+    input: string;
+    output: string;
+    type: 'encrypt' | 'decrypt';
   }
+
+  function handleHistoryClick(item: HistoryItem) {
+    setTexto(item.input);
+    // Fix using null check
+    if (inputSaidaRef.current) {
+      inputSaidaRef.current.value = item.output;
+    }
   }
 
   return (
@@ -101,8 +109,8 @@ function descriptografar(stringDescriptada: string): string {
               <textarea
                 value={texto}
                 onChange={(e) => setTexto(e.target.value)}
-                cols="30"
-                rows="5"
+                cols={30}
+                rows={5}
                 placeholder="Digite..."
               ></textarea>
             </div>
@@ -121,8 +129,8 @@ function descriptografar(stringDescriptada: string): string {
             <div className="conteudo-resultado-ok">
               <textarea
                 ref={inputSaidaRef}
-                cols="30"
-                rows="5"
+                cols={30}
+                rows={5}
                 readOnly
               ></textarea>
               

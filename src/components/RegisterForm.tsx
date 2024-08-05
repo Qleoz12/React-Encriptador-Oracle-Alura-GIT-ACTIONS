@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import "./login.css"
-import useGlobalState, { stateX } from "../globals/Globalstates.js";
+// import useGlobalState, { stateX } from "../globals/Globalstates.js";
 
 export const RegisterForm = () => {
     const [inputUsername, setInputUsername] = useState("");
@@ -10,23 +10,23 @@ export const RegisterForm = () => {
     const [show, setShow] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const [state, setState] = useGlobalState(stateX);
+    // const [, setState] = useGlobalState(stateX);
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setLoading(true);
         await delay(500);
         console.log(`Username :${inputUsername}, Password :${inputPassword}`);
         if (inputUsername == "admin" || inputPassword == "admin") {
             setShow(true);
-            setState(true)
+            // setState(true)
         }
         setLoading(false);
     };
 
     const handlePassword = () => { };
 
-    function delay(ms) {
+    function delay(ms: number) {
         return new Promise((resolve) => setTimeout(resolve, ms));
     }
 

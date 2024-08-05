@@ -3,11 +3,10 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 
 
-const AluraChallenge = () => {
-
-    const [count, setCount] = useState(0)
+export const AluraChallenge = () => {
     const [texto, setTexto] = useState('')
-    const inputSaidaRef = useRef(null)
+    const [history, setHistory] = useState<{ input: string; output: string; type: 'encrypt' | 'decrypt'; }[]>([]);
+    const inputSaidaRef = useRef<HTMLTextAreaElement>(null);
 
     const matrizCodigo = [
         ["a", "ai"],
@@ -15,41 +14,67 @@ const AluraChallenge = () => {
         ["i", "imes"],
         ["o", "ober"],
         ["u", "ufat"]
-    ]
+    ];
 
-    function criptografar(stringEncriptada: string) {
-        stringEncriptada = stringEncriptada.toLowerCase()
+    function criptografar(stringEncriptada: string): string {
+        stringEncriptada = stringEncriptada.toLowerCase();
+        const originalArray = stringEncriptada.split("");
+
         matrizCodigo.forEach(([original, codificado]) => {
-            if (stringEncriptada.includes(original)) {
-                stringEncriptada = stringEncriptada.replaceAll(original, codificado)
+            for (let i = 0; i < originalArray.length; i++) {
+                if (originalArray[i] === original) {
+                    originalArray[i] = codificado;
+                }
             }
-        })
-        return stringEncriptada
+        });
+
+        return originalArray.join("");
     }
 
-    function descriptografar(stringDescriptada: string) {
-        stringDescriptada = stringDescriptada.toLowerCase()
-        matrizCodigo.forEach(([original, codificado]) => {
-            if (stringDescriptada.includes(codificado)) {
-                stringDescriptada = stringDescriptada.replace(new RegExp(codificado, 'g'), original)
-            }
-        })
-        return stringDescriptada
-    }
+    function descriptografar(stringDescriptada: string): string {
+        stringDescriptada = stringDescriptada.toLowerCase();
 
+        matrizCodigo.forEach(([original, codificado]) => {
+            stringDescriptada = stringDescriptada.split(codificado).join(original);
+        });
+
+        return stringDescriptada;
+    }
     function botaoCriptografar() {
         const textoEncriptado = criptografar(texto)
-        inputSaidaRef.current.value = textoEncriptado
+        if (inputSaidaRef.current) {
+            inputSaidaRef.current.value = textoEncriptado;
+        }
+
+        // Append new entry into history
+        setHistory([...history, { input: texto, output: textoEncriptado, type: 'encrypt' }]);
     }
 
     function botaoDescriptografar() {
         const textoDescriptado = descriptografar(texto)
-        inputSaidaRef.current.value = textoDescriptado
+        if (inputSaidaRef.current) {
+            inputSaidaRef.current.value = textoDescriptado
+        }
+        setHistory([...history, { input: texto, output: textoDescriptado, type: 'decrypt' }]);
     }
 
     function copiarTexto() {
-        inputSaidaRef.current.select()
+        inputSaidaRef.current?.select()
         document.execCommand("copy")
+    }
+
+    interface HistoryItem {
+        input: string;
+        output: string;
+        type: 'encrypt' | 'decrypt';
+    }
+
+    function handleHistoryClick(item: HistoryItem) {
+        setTexto(item.input);
+        // Fix using null check
+        if (inputSaidaRef.current) {
+            inputSaidaRef.current.value = item.output;
+        }
     }
 
     return (
@@ -69,29 +94,12 @@ const AluraChallenge = () => {
                 </a>
             </div>
             <h1>OracleOne+Alura+Vite+React</h1>
-            <div className="card">
-                <button onClick={() => setCount(count + 1)}>
-                    count is {count}
-                </button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
+
             <p className="read-the-docs">
                 Click on the logos to learn more
             </p>
 
             <header className="flex">
-                {/* <div className="m-8">
-        <p>Language</p>
-        <label className="select" htmlFor="slct">
-          <select id="slct" required onChange={(e) => console.log(e.target.value)}>
-            <option value="" disabled selected>Select option</option>
-            <option value="en">English</option>
-            <option value="es">Español</option>
-          </select>
-        </label>
-      </div> */}
             </header>
 
             <main>
@@ -101,8 +109,8 @@ const AluraChallenge = () => {
                             <textarea
                                 value={texto}
                                 onChange={(e) => setTexto(e.target.value)}
-                                cols="30"
-                                rows="13"
+                                cols={30}
+                                rows={5}
                                 placeholder="Digite..."
                             ></textarea>
                         </div>
@@ -121,13 +129,27 @@ const AluraChallenge = () => {
                         <div className="conteudo-resultado-ok">
                             <textarea
                                 ref={inputSaidaRef}
-                                cols="30"
-                                rows="20"
+                                cols={30}
+                                rows={5}
                                 readOnly
                             ></textarea>
-                            <button className="copiar" onClick={copiarTexto}>Copy</button>
+
+                        </div>
+                        <div className="botoes">
+                            <button className="encrypt" onClick={copiarTexto}>copy</button>
                         </div>
                     </div>
+                </section>
+
+                <section className="history">
+                    <h2>History</h2>
+                    <ul>
+                        {history.map((item, index) => (
+                            <li key={index} onClick={() => handleHistoryClick(item)}>
+                                <strong>{item.type === 'encrypt' ? 'Encrypted' : 'Decrypted'}</strong>: {item.input} → {item.output}
+                            </li>
+                        ))}
+                    </ul>
                 </section>
             </main>
         </>

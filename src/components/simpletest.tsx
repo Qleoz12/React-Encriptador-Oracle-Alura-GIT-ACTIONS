@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
+import React, { } from "react";
 import './App.css';
-import { RegisterForm } from './components/RegisterForm';
-import { Page1 } from './components/Page1';
-import { Page2 } from './components/Page2';
-import useGlobalState, { stateX } from "./globals/Globalstates.js";
+import { RegisterForm } from "./RegisterForm";
+import { Page1 } from "./page1";
+//import useGlobalState, { stateX } from "../globals/Globalstates.js";
 
-function App2() {
-  const [state, setState] = useGlobalState(stateX);
+export const Simpletest = () => {
+  // const [state] = useGlobalState(stateX);
   const [currentPage, setCurrentPage] = React.useState("home");
 
   //change to use  router in a real react app just for didactic purpouses
@@ -14,11 +13,11 @@ function App2() {
     setCurrentPage(page);
   };
 
-  useEffect(() => {
-    if (state && currentPage === "home") {
-      navigateTo("page1");
-    }
-  }, [state]);
+  // useEffect(() => {
+  //   if (state && currentPage === "home") {
+  //     navigateTo("page1");
+  //   }
+  // }, [state]);
 
   return (
     <>
@@ -33,4 +32,5 @@ function App2() {
   );
 }
 
-export default App;
+
+

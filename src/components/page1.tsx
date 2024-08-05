@@ -1,6 +1,13 @@
 import React from "react";
 
-export const Page1 = ({ navigateTo  }) => {
+
+// Define a type for the props
+interface Page1Props {
+  navigateTo: (path: string) => void; // Assuming navigateTo is a function that takes a string argument and returns void
+}
+
+
+export const Page1:React.FC<Page1Props> = ({ navigateTo  }) => {
   return (
     <React.Fragment>
       <h1>¡Login Successfully!</h1>
