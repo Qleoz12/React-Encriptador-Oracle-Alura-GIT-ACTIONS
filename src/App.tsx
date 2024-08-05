@@ -6,7 +6,7 @@ import './App.css'
 function App() {
   const [texto, setTexto] = useState('')
   const [history, setHistory] = useState([]);
-  const inputSaidaRef = useRef(null);
+  const inputSaidaRef = useRef<HTMLInputElement>(null);
 
   const matrizCodigo = [
     ["a", "ai"],
@@ -18,7 +18,7 @@ function App() {
   
   function criptografar(stringEncriptada: string): string {
     stringEncriptada = stringEncriptada.toLowerCase();
-    let originalArray = stringEncriptada.split("");
+    const originalArray = stringEncriptada.split("");
   
     matrizCodigo.forEach(([original, codificado]) => {
         for (let i = 0; i < originalArray.length; i++) {
@@ -42,24 +42,31 @@ function descriptografar(stringDescriptada: string): string {
 }
   function botaoCriptografar() {
     const textoEncriptado = criptografar(texto)
-    inputSaidaRef.current.value = textoEncriptado
+    if (inputSaidaRef.current) {
+      inputSaidaRef.current.value = textoEncriptado
+    }
     setHistory([...history, { input: texto, output: textoEncriptado, type: 'encrypt' }]);
   }
 
   function botaoDescriptografar() {
     const textoDescriptado = descriptografar(texto)
-    inputSaidaRef.current.value = textoDescriptado
+    if (inputSaidaRef.current) {
+      inputSaidaRef.current.value = textoDescriptado
+    }
     setHistory([...history, { input: texto, output: textoDescriptado, type: 'decrypt' }]);
   }
 
   function copiarTexto() {
-    inputSaidaRef.current.select()
+    inputSaidaRef.current?.select()
     document.execCommand("copy")
   }
 
   function handleHistoryClick(item) {
     setTexto(item.input);
-    inputSaidaRef.current.value = item.output;
+     // Fix using null check
+     if (inputSaidaRef.current) {
+      inputSaidaRef.current.value = item.output;
+  }
   }
 
   return (
