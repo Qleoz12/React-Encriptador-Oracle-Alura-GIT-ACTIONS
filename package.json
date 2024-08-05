@@ -1,6 +1,5 @@
 {
-  "name": "git_actions_reactjs",
-  "homepage": "https://muhdhanish.github.io/git_actions_reactjs",
+  "name": "React-Encriptador-Oracle-Alura-GIT-ACTIONS",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -14,7 +13,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "git_actions_reactjs": "file:",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.4",
     "react-dom": "^18.2.0"
