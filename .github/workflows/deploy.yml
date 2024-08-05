@@ -4,11 +4,7 @@ on:
   push:
     branches:
       - main
-permissions:
-  contents: read
-  pull-requests: write
-  id-token: write
-  pages: write
+
 jobs:
   build:
     name: Build
@@ -29,9 +25,6 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: List build directory contents
-        run: ls -la ./dist
-
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v2
         with:
@@ -50,9 +43,9 @@ jobs:
         with:
           name: production-files
           path: ./dist
-      
-      - name: List build directory contents
-        run: ls -la ./dist
 
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v3
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
