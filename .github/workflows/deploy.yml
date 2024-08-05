@@ -4,7 +4,11 @@ on:
   push:
     branches:
       - main
-
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+  pages: write
 jobs:
   build:
     name: Build
@@ -45,7 +49,4 @@ jobs:
           path: ./dist
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+        uses: actions/deploy-pages@v3
