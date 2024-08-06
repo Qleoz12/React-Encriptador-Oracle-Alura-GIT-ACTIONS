@@ -15,7 +15,8 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.4",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "React-Encriptador-Oracle-Alura-GIT-ACTIONS": "file:"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
