@@ -15,40 +15,40 @@ function App() {
     ["o", "ober"],
     ["u", "ufat"]
   ];
-  
+
   function criptografar(stringEncriptada: string): string {
     stringEncriptada = stringEncriptada.toLowerCase();
     const originalArray = stringEncriptada.split("");
-  
+
     matrizCodigo.forEach(([original, codificado]) => {
-        for (let i = 0; i < originalArray.length; i++) {
-            if (originalArray[i] === original) {
-                originalArray[i] = codificado;
-            }
+      for (let i = 0; i < originalArray.length; i++) {
+        if (originalArray[i] === original) {
+          originalArray[i] = codificado;
         }
+      }
     });
-  
+
     return originalArray.join("");
-}
-  
-function descriptografar(stringDescriptada: string): string {
+  }
+
+  function descriptografar(stringDescriptada: string): string {
     stringDescriptada = stringDescriptada.toLowerCase();
-  
+
     matrizCodigo.forEach(([original, codificado]) => {
-        stringDescriptada = stringDescriptada.split(codificado).join(original);
+      stringDescriptada = stringDescriptada.split(codificado).join(original);
     });
-  
+
     return stringDescriptada;
-}
+  }
   function botaoCriptografar() {
     const textoEncriptado = criptografar(texto)
     if (inputSaidaRef.current) {
       inputSaidaRef.current.value = textoEncriptado;
-  }
+    }
 
-  // Append new entry into history
-  setHistory([...history, { input: texto, output: textoEncriptado, type: 'encrypt' }]);
-}
+    // Append new entry into history
+    setHistory([...history, { input: texto, output: textoEncriptado, type: 'encrypt' }]);
+  }
 
   function botaoDescriptografar() {
     const textoDescriptado = descriptografar(texto)
@@ -94,7 +94,7 @@ function descriptografar(stringDescriptada: string): string {
         </a>
       </div>
       <h1>OracleOne+Alura+Vite+React</h1>
-      
+
       <p className="read-the-docs">
         Click on the logos to learn more
       </p>
@@ -133,7 +133,7 @@ function descriptografar(stringDescriptada: string): string {
                 rows={5}
                 readOnly
               ></textarea>
-              
+
             </div>
             <div className="botoes">
               <button className="encrypt" onClick={copiarTexto}>copy</button>
@@ -152,6 +152,10 @@ function descriptografar(stringDescriptada: string): string {
           </ul>
         </section>
       </main>
+
+      <div>
+        <profile-card></profile-card>
+      </div>
     </>
   )
 }
